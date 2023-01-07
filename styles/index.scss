@@ -1,0 +1,21 @@
+html,
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: Nunito, sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 300;
+    //background-color: #f4f7f9;
+}
+
+.page-footer {
+    padding: 40px;
+    font-size: 20px;
+    text-align: center;
+
+    a {
+        color: #63696e;
+    }
+}
