@@ -14,6 +14,12 @@ function ResponsiveAppBar() {
   const dispatch = useDispatch();
 
   const themeType = useSelector((state) => state.theme);
+  const cart = useSelector((state) => state.products.carts);
+  const cartValues = Object.values(cart);
+  const sum = cartValues.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
   return (
     <AppBar position='static'>
       <Container maxWidth='xl'>
@@ -67,7 +73,7 @@ function ResponsiveAppBar() {
               aria-label='Show cart with number of items'
               color='inherit'
             >
-              <Badge badgeContent={4} color='error'>
+              <Badge badgeContent={sum} color='error'>
                 <ShoppingCartTwoToneIcon />
               </Badge>
             </IconButton>

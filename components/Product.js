@@ -8,7 +8,40 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-export default function Product({ item }) {
+import ButtonGroup from '@mui/material/ButtonGroup';
+
+export default function Product({
+  item,
+  addtoCart,
+  prodInCart,
+  increment,
+  decrement,
+}) {
+  const buttons = [
+    <Button key='one' onClick={() => addtoCart(item)}>
+      +
+    </Button>,
+    <Button key='two'>{prodInCart}</Button>,
+    <Button key='three' onClick={() => decrement(item)}>
+      -
+    </Button>,
+  ];
+
+  const renderButton = () => {
+    if (prodInCart == 0) {
+      return (
+        <Button variant='outlined' onClick={() => addtoCart(item)}>
+          Add to Cart
+        </Button>
+      );
+    } else {
+      return (
+        <ButtonGroup size='small' aria-label='small button group'>
+          {buttons}
+        </ButtonGroup>
+      );
+    }
+  };
   return (
     <Grid xs={12} sm={4} md={3} columnSpacing={10}>
       <Box>
@@ -44,7 +77,7 @@ export default function Product({ item }) {
                 {item.description}
               </Typography>
             </CardContent>
-            <CardActions></CardActions>
+            <CardActions>{renderButton()}</CardActions>
           </Card>
         </Paper>
       </Box>

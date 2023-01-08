@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 const productSlice = createSlice({
   name: 'products',
-  initialState: { products: [] },
+  initialState: { products: [], carts: {} },
   reducers: {
     productList(state, action) {
       // "Mutate" the existing state, no return value needed
@@ -10,19 +10,30 @@ const productSlice = createSlice({
     },
     addCart(state, action) {
       // "Mutate" the existing state, no return value needed
-      state = state;
+
+      if (state.carts[action.payload]) {
+        state.carts[action.payload] = state.carts[action.payload] + 1;
+      } else {
+        state.carts[action.payload] = 1;
+      }
     },
-    updateQunatityIncart(state, action) {
-      // "Mutate" the existing state, no return value needed
-      state.push(action.payload);
+    incrementQuantity(state, action) {
+      if (state.carts[action.payload]) {
+        state.carts[action.payload] = state.carts[action.payload] + 1;
+      } else {
+        state.carts[action.payload] = 1;
+      }
     },
-    removeCart(state, action) {
-      // "Mutate" the existing state, no return value needed
-      state.push(action.payload);
+    decrementQuantity(state, action) {
+      if (state.carts[action.payload]) {
+        state.carts[action.payload] = state.carts[action.payload] - 1;
+      } else {
+        state.carts[action.payload] = 0;
+      }
     },
   },
 });
 
-export const { productList, addCart, updateQunatityIncart, removeCart } =
+export const { productList, addCart, incrementQuantity, decrementQuantity } =
   productSlice.actions;
 export default productSlice.reducer;
