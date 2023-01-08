@@ -43,7 +43,9 @@ const ProductList = () => {
         alignItems='flex-end'
       >
         {newProducts.length ? (
-          <Button variant='contained'>{`Checkout - Total ${totalPrice}`}</Button>
+          <Button variant='contained'>{`Checkout - Total ${totalPrice.toFixed(
+            2
+          )}`}</Button>
         ) : null}
       </Grid>
     </Grid>
