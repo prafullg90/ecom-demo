@@ -8,8 +8,19 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Rating from '@mui/material/Rating';
+import { styled } from '@mui/material/styles';
+
+const item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 export default function CartProduct({
-  item,
+  prod,
   addtoCart,
   prodInCart,
   increment,
@@ -17,11 +28,11 @@ export default function CartProduct({
 }) {
   const theme = useTheme();
   const buttons = [
-    <Button key='one' onClick={() => addtoCart(item)} variant='contained'>
+    <Button key='one' onClick={() => addtoCart(prod)} variant='contained'>
       +
     </Button>,
     <Button key='two'>{prodInCart}</Button>,
-    <Button key='three' onClick={() => decrement(item)} variant='contained'>
+    <Button key='three' onClick={() => decrement(prod)} variant='contained'>
       -
     </Button>,
   ];
@@ -29,7 +40,7 @@ export default function CartProduct({
   const renderButton = () => {
     if (prodInCart == 0) {
       return (
-        <Button variant='outlined' onClick={() => addtoCart(item)}>
+        <Button variant='outlined' onClick={() => addtoCart(prod)}>
           Add to Cart
         </Button>
       );
@@ -49,33 +60,59 @@ export default function CartProduct({
             <CardMedia
               component='img'
               sx={{ width: 151 }}
-              image={item.image}
-              alt={item.title}
+              image={prod.image}
+              alt={prod.title}
             />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <CardContent sx={{ flex: '1 0 auto' }}>
                 <Typography component='div' variant='h5'>
-                  {item.title}
+                  {prod.title}
                 </Typography>
                 <Typography
                   variant='subtitle1'
                   color='text.secondary'
                   component='div'
                 >
-                  {item.description}
+                  {prod.description}
                 </Typography>
               </CardContent>
+
               <Grid
                 container
                 direction='row-reverse'
                 justifyContent='flex-start'
                 alignItems='flex-end'
               >
-                <Box
-                  sx={{ display: 'flex', alignItems: 'right', pl: 1, pb: 1 }}
-                >
-                  {renderButton()}
-                </Box>
+                <Grid item xs={12} sm={4} md={3}>
+                  <Typography
+                    variant='h6'
+                    component='h6'
+                    color='blue'
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {`Rs.  ${prod.price}`}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4} md={3}>
+                  <Rating
+                    name='simple-controlled'
+                    value={prod.rating.rate}
+                    onChange={(event, newValue) => {
+                      //setValue(newValue);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4} md={3}>
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'right', pl: 1, pb: 1 }}
+                  >
+                    {renderButton()}
+                  </Box>
+                </Grid>
               </Grid>
             </Box>
           </Card>

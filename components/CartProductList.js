@@ -1,26 +1,31 @@
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart, decrementQuantity } from '../redux/Reducers/products';
 import CartProduct from './CartProduct';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  addCart,
-  incrementQuantity,
-  decrementQuantity,
-} from '../redux/Reducers/products';
+import { useEffect, useState } from 'react';
 const ProductList = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
   const products = useSelector((state) => state.products.products);
   const cart = useSelector((state) => state.products.carts);
   const dispatch = useDispatch();
   const newProducts = products.filter((prod) => cart[prod.id]);
 
+  useEffect(() => {
+    const sum = newProducts.reduce(
+      (accumulator, currentValue) =>
+        accumulator + currentValue.price * cart[currentValue.id],
+      0
+    );
+    setTotalPrice(sum);
+  }, [cart]);
   const productsArr = newProducts?.map((item) => {
     const prodId = item.id;
     const prodInCart = cart[prodId] || 0;
     return (
       <CartProduct
         key={prodId}
-        item={item}
+        prod={item}
         addtoCart={(val) => dispatch(addCart(val.id))}
         decrement={(val) => dispatch(decrementQuantity(val.id))}
         prodInCart={prodInCart}
@@ -30,6 +35,17 @@ const ProductList = () => {
   return (
     <Grid container columnSpacing={2} rowSpacing={1}>
       {productsArr}
+
+      <Grid
+        container
+        direction='row-reverse'
+        justifyContent='flex-start'
+        alignItems='flex-end'
+      >
+        {newProducts.length ? (
+          <Button variant='contained'>{`Checkout - Total ${totalPrice}`}</Button>
+        ) : null}
+      </Grid>
     </Grid>
   );
 };

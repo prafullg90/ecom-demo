@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import CartProductList from '../components/CartProductList';
 import PageLayout from '../components/PageLayout';
 export default function Cart() {
+  useEffect(() => {}, []);
   return (
     <>
       <Head>

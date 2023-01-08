@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
-
+import Rating from '@mui/material/Rating';
 export default function Product({
   item,
   addtoCart,
@@ -30,18 +30,23 @@ export default function Product({
   const renderButton = () => {
     if (prodInCart == 0) {
       return (
-        <Button variant='outlined' onClick={() => addtoCart(item)}>
-          Add to Cart
-        </Button>
+        <Box display='flex' justifyContent='flex-start'>
+          <Button variant='outlined' onClick={() => addtoCart(item)}>
+            Add to Cart
+          </Button>
+        </Box>
       );
     } else {
       return (
-        <ButtonGroup size='small' aria-label='small button group'>
-          {buttons}
-        </ButtonGroup>
+        <Box display='flex' justifyContent='flex-start'>
+          <ButtonGroup size='small' aria-label='small button group'>
+            {buttons}
+          </ButtonGroup>
+        </Box>
       );
     }
   };
+
   return (
     <Grid xs={12} sm={4} md={3} columnSpacing={10}>
       <Box>
@@ -76,8 +81,31 @@ export default function Product({
               >
                 {item.description}
               </Typography>
+              <Typography
+                variant='h6'
+                component='h6'
+                color='blue'
+                style={{
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {`Rs.  ${item.price}`}
+              </Typography>
             </CardContent>
-            <CardActions>{renderButton()}</CardActions>
+            <CardActions>
+              {renderButton()}
+              <Box display='flex' justifyContent='flex-end'>
+                <Rating
+                  name='simple-controlled'
+                  value={item.rating.rate}
+                  onChange={(event, newValue) => {
+                    //setValue(newValue);
+                  }}
+                />
+              </Box>
+            </CardActions>
           </Card>
         </Paper>
       </Box>

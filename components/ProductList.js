@@ -1,13 +1,7 @@
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart, decrementQuantity } from '../redux/Reducers/products';
 import Product from './Product';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  addCart,
-  incrementQuantity,
-  decrementQuantity,
-} from '../redux/Reducers/products';
 const ProductList = () => {
   const products = useSelector((state) => state.products.products);
   const cart = useSelector((state) => state.products.carts);
