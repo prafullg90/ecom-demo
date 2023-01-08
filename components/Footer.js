@@ -2,11 +2,11 @@ const Footer = () => {
   return (
     <footer className='page-footer'>
       <div>
-        <a href='#'>courses</a>
+        <a href='#'>MEN</a>
         {' | '}
-        <a href='#'>github</a>
+        <a href='#'>WOMEN</a>
         {' | '}
-        <a href='#'>facebook</a>
+        <a href='#'>KIDS</a>
       </div>
     </footer>
   );
