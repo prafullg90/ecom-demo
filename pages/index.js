@@ -23,7 +23,7 @@ export default function Home() {
       const params = {};
       API.getAllProducts({}, cb);
     }
-  }, [products]);
+  }, [products, dispatch]);
   return (
     <>
       <Head>

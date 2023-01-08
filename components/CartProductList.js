@@ -19,6 +19,7 @@ const ProductList = () => {
     const prodInCart = cart[prodId] || 0;
     return (
       <CartProduct
+        key={prodId}
         item={item}
         addtoCart={(val) => dispatch(addCart(val.id))}
         decrement={(val) => dispatch(decrementQuantity(val.id))}
