@@ -18,11 +18,11 @@ export default function Product({
   decrement,
 }) {
   const buttons = [
-    <Button key='one' onClick={() => addtoCart(item)}>
+    <Button key='one' onClick={() => addtoCart(item)} variant='contained'>
       +
     </Button>,
     <Button key='two'>{prodInCart}</Button>,
-    <Button key='three' onClick={() => decrement(item)}>
+    <Button key='three' onClick={() => decrement(item)} variant='contained'>
       -
     </Button>,
   ];
